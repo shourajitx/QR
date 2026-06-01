@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shourajiit qr</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    color:white;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.logo{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+h1{
+    margin-bottom:5px;
+}
+
+.subtitle{
+    color:#cbd5e1;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+}
+
+.buttons{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.generate{
+    background:#22c55e;
+    color:white;
+}
+
+.download{
+    background:#3b82f6;
+    color:white;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+#qrcode{
+    margin-top:25px;
+    display:inline-block;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+}
+
+.scan-text{
+    margin-top:10px;
+    color:#e2e8f0;
+}
+
+/* Instagram Button */
+.insta-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:linear-gradient(
+        45deg,
+        #f09433,
+        #e6683c,
+        #dc2743,
+        #cc2366,
+        #bc1888
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    box-shadow:0 5px 15px rgba(0,0,0,.4);
+    transition:.3s;
+}
+
+.insta-btn:hover{
+    transform:scale(1.1);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo" style="font-family: 'Poppins', sans-serif;"> DEVLOPED BY SHOURAJIT</div>
+
+    <h1>QR Code Generator </h1>
+    <p class="subtitle">FREE MEI QR GENERATE KARO </p>
+
+    <input
+        type="text"
+        id="text"
+        placeholder="Enter URL or Text"
+    >
+
+    <div class="buttons">
+        <button class="generate" onclick="generateQR()">
+            Generate QR
+        </button>
+
+        <button class="download" onclick="downloadQR()">
+            Download QR
+        </button>
+    </div>
+
+    <div id="qrcode"></div>
+
+    <div class="scan-text">
+        Scan Me 📱
+    </div>
+
+</div>
+
+<!-- Instagram Button -->
+<a
+href="https://instagram.com/SHOURAJIIT"
+target="_blank"
+class="insta-btn"
+title="Instagram">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+width="28"
+height="28"
+fill="white"
+viewBox="0 0 16 16">
+
+<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.92 3.92 0 0 0-1.417.923A3.92 3.92 0 0 0 .42 2.76c-.198.509-.332 1.09-.372 1.943C.01 5.556 0 5.829 0 8c0 2.171.01 2.444.048 3.297.04.853.174 1.434.372 1.943.205.527.478.974.923 1.417.443.445.89.718 1.417.923.509.198 1.09.332 1.943.372C5.556 15.99 5.829 16 8 16c2.171 0 2.444-.01 3.297-.048.853-.04 1.434-.174 1.943-.372a3.92 3.92 0 0 0 1.417-.923 3.92 3.92 0 0 0 .923-1.417c.198-.509.332-1.09.372-1.943C15.99 10.444 16 10.171 16 8c0-2.171-.01-2.444-.048-3.297-.04-.853-.174-1.434-.372-1.943a3.92 3.92 0 0 0-.923-1.417A3.92 3.92 0 0 0 13.24.42c-.509-.198-1.09-.332-1.943-.372C10.444.01 10.171 0 8 0z"/>
+</svg>
+
+</a>
+
+<script>
+
+function generateQR(){
+
+    let text=document.getElementById("text").value.trim();
+
+    if(text===""){
+        alert("Please enter text or URL");
+        return;
+    }
+
+    document.getElementById("qrcode").innerHTML="";
+
+    new QRCode(document.getElementById("qrcode"),{
+        text:text,
+        width:250,
+        height:250,
+        correctLevel:QRCode.CorrectLevel.H
+    });
+}
+
+function downloadQR(){
+
+    let qrCanvas=document.querySelector("#qrcode canvas");
+
+    if(!qrCanvas){
+        alert("Generate QR Code First");
+        return;
+    }
+
+    let padding=20;
+
+    let canvas=document.createElement("canvas");
+
+    canvas.width=qrCanvas.width+(padding*2);
+    canvas.height=qrCanvas.height+(padding*2);
+
+    let ctx=canvas.getContext("2d");
+
+    ctx.fillStyle="#ffffff";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.drawImage(qrCanvas,padding,padding);
+
+    let link=document.createElement("a");
+
+    link.download="QRCode.png";
+    link.href=canvas.toDataURL("image/png");
+
+    link.click();
+}
+
+</script>
+
+</body>
+</html>
